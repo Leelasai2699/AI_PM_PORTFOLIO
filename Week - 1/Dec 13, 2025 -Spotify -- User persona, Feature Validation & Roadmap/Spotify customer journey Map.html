@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify India - Vernacular Content Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #1DB954;
+        }
+        
+        .header h1 {
+            color: #191414;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #535353;
+            font-size: 18px;
+            margin-top: 8px;
+        }
+        
+        .spotify-logo {
+            color: #1DB954;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .journey-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            font-size: 13px;
+        }
+        
+        .journey-table th {
+            background: #1DB954;
+            color: white;
+            padding: 18px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid #169c46;
+        }
+        
+        .journey-table th:first-child {
+            background: #191414;
+            width: 140px;
+        }
+        
+        .journey-table td {
+            padding: 16px 12px;
+            border: 1px solid #e0e0e0;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        
+        .journey-table td:first-child {
+            background: #f7f7f7;
+            font-weight: 600;
+            color: #191414;
+        }
+        
+        .journey-table .quote {
+            color: #1DB954;
+            font-style: italic;
+            display: block;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        
+        .journey-table .hmw {
+            color: #2a5298;
+            font-weight: 500;
+        }
+        
+        .recommendations {
+            background: #f8f8f8;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 6px solid #1DB954;
+        }
+        
+        .recommendations h2 {
+            color: #191414;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .rec-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #1DB954;
+        }
+        
+        .rec-item strong {
+            color: #191414;
+        }
+        
+        .metric {
+            color: #2a5298;
+            font-weight: 600;
+        }
+        
+        .effort {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .effort-s { background: #d4edda; color: #155724; }
+        .effort-m { background: #fff3cd; color: #856404; }
+        .effort-l { background: #f8d7da; color: #721c24; }
+        
+        .snapshot {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #1DB954 0%, #169c46 100%);
+            color: white;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+        }
+        
+        .bullet {
+            display: block;
+            margin-bottom: 6px;
+        }
+        
+        .bullet:before {
+            content: "• ";
+            color: #1DB954;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="spotify-logo">♪ SPOTIFY INDIA</div>
+            <h1>Customer Journey Map</h1>
+            <div class="subtitle">Vernacular Content & Podcast Engagement | Ages 15-35</div>
+        </div>
+        
+        <table class="journey-table">
+            <thead>
+                <tr>
+                    <th>Stage</th>
+                    <th>Awareness</th>
+                    <th>Consideration</th>
+                    <th>Onboarding</th>
+                    <th>Retention</th>
+                    <th>Loyalty</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Customer Actions</td>
+                    <td>
+                        <span class="bullet">Browse social feed, WhatsApp</span>
+                        <span class="bullet">Hear song/podcast clip shared</span>
+                    </td>
+                    <td>
+                        <span class="bullet">Search vernacular keywords</span>
+                        <span class="bullet">Preview Hindi/regional podcasts</span>
+                    </td>
+                    <td>
+                        <span class="bullet">Skip language preferences</span>
+                        <span class="bullet">Explore homepage recommendations</span>
+                    </td>
+                    <td>
+                        <span class="bullet">Return for English music</span>
+                        <span class="bullet">Ignore vernacular suggestions</span>
+                    </td>
+                    <td>
+                        <span class="bullet">Share English playlists</span>
+                        <span class="bullet">Rarely explore regional tabs</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Touchpoints</td>
+                    <td>
+                        <span class="bullet">Instagram Reels, YouTube Shorts</span>
+                        <span class="bullet">WhatsApp forwards, ShareChat</span>
+                    </td>
+                    <td>
+                        <span class="bullet">Spotify search, Home feed</span>
+                        <span class="bullet">Google "Hindi podcast"</span>
+                    </td>
+                    <td>
+                        <span class="bullet">App onboarding flow</span>
+                        <span class="bullet">Home, Search tabs</span>
+                    </td>
+                    <td>
+                        <span class="bullet">Push notifications, Daily Mix</span>
+                        <span class="bullet">Browse UI</span>
+                    </td>
+                    <td>
+                        <span class="bullet">Playlists, Friend activity</span>
+                        <span class="bullet">Social share features</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Experience</td>
+                    <td>
+                        Curious but passive
+                        <span class="quote">"Saw clip, looked fun"</span>
+                    </td>
+                    <td>
+                        Overwhelmed, unsure
+                        <span class="quote">"Too much English content"</span>
+                    </td>
+                    <td>
+                        Neutral, fast-click
+                        <span class="quote">"Just want music now"</span>
+                    </td>
+                    <td>
+                        Habitual but narrow
+                        <span class="quote">"Same old playlists again"</span>
+                    </td>
+                    <td>
+                        Satisfied but limited
+                        <span class="quote">"Works for Bollywood hits"</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pain Points</td>
+                    <td>
+                        No vernacular discovery entry
+                        <span class="quote">"Don't know it exists"</span>
+                    </td>
+                    <td>
+                        Can't find quality content
+                        <span class="quote">"Search shows nothing good"</span>
+                    </td>
+                    <td>
+                        No language prompt upfront
+                        <span class="quote">"Didn't ask my language"</span>
+                    </td>
+                    <td>
+                        Algo pushes English heavily
+                        <span class="quote">"Why no Tamil recommendations?"</span>
+                    </td>
+                    <td>
+                        No social vernacular loops
+                        <span class="quote">"Friends don't share regional"</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Opportunities</td>
+                    <td><span class="hmw">HMW surface viral vernacular clips at signup?</span></td>
+                    <td><span class="hmw">HMW showcase top regional podcasts by state?</span></td>
+                    <td><span class="hmw">HMW ask language preference in first 10 seconds?</span></td>
+                    <td><span class="hmw">HMW auto-detect listening patterns for vernacular nudges?</span></td>
+                    <td><span class="hmw">HMW gamify sharing regional content with friends?</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="recommendations">
+            <h2>Top 4 Recommendations</h2>
+            <div class="rec-item">
+                <strong>1. Add language selector at app open</strong> to fix discovery ⇒ <span class="metric">Vernacular session starts</span> <span class="effort effort-s">Effort: S</span>
+            </div>
+            <div class="rec-item">
+                <strong>2. Launch state-wise podcast carousels on Home</strong> to boost visibility ⇒ <span class="metric">Regional podcast plays +40%</span> <span class="effort effort-m">Effort: M</span>
+            </div>
+            <div class="rec-item">
+                <strong>3. Auto-suggest vernacular content after 3 Hindi/regional song plays</strong> to retain ⇒ <span class="metric">Weekly vernacular listening hours</span> <span class="effort effort-m">Effort: M</span>
+            </div>
+            <div class="rec-item">
+                <strong>4. Create shareable vernacular Reels/stories with branded stickers</strong> to drive virality ⇒ <span class="metric">Social shares of regional content +60%</span> <span class="effort effort-l">Effort: L</span>
+            </div>
+        </div>
+        
+        <div class="snapshot">
+            <strong>Journey Snapshot:</strong> Language invisibility → curated regional feed → habitual vernacular listening
+        </div>
+    </div>
+</body>
+</html>
