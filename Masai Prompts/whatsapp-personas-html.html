@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Message Discovery - Personas & Journey Map</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f9fafb;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .persona-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+        
+        .persona-header {
+            padding: 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .persona-header.emerald {
+            background: linear-gradient(to right, #10b981, #059669);
+        }
+        
+        .persona-header.teal {
+            background: linear-gradient(to right, #14b8a6, #0d9488);
+        }
+        
+        .persona-info h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .persona-info p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+        
+        .persona-icon {
+            width: 6rem;
+            height: 6rem;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .persona-body {
+            padding: 2rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section h3 {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section ul {
+            list-style: none;
+            color: #374151;
+        }
+        
+        .section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .pain-points {
+            background: #fef2f2;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pain-points h3 {
+            color: #7f1d1d;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pain-point {
+            color: #991b1b;
+            margin-bottom: 0.75rem;
+            display: flex;
+        }
+        
+        .pain-point span:first-child {
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .emotional-state {
+            background: #fff7ed;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+        
+        .emotional-state h3 {
+            color: #7c2d12;
+            margin-bottom: 0.75rem;
+        }
+        
+        .emotional-state p {
+            color: #9a3412;
+            font-size: 1.125rem;
+            font-style: italic;
+        }
+        
+        .journey-map {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .journey-header h2 {
+            font-size: 2rem;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        
+        .journey-header p {
+            color: #6b7280;
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stages {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .stage {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 2px solid;
+        }
+        
+        .stage.blue {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+        
+        .stage.purple {
+            background: #faf5ff;
+            border-color: #e9d5ff;
+        }
+        
+        .stage.amber {
+            background: #fffbeb;
+            border-color: #fde68a;
+        }
+        
+        .stage.red {
+            background: #fef2f2;
+            border-color: #fecaca;
+        }
+        
+        .stage.emerald {
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+        }
+        
+        .stage-number {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stage.blue .stage-number { background: #3b82f6; }
+        .stage.purple .stage-number { background: #a855f7; }
+        .stage.amber .stage-number { background: #f59e0b; }
+        .stage.red .stage-number { background: #ef4444; }
+        .stage.emerald .stage-number { background: #10b981; }
+        
+        .stage h3 {
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .stage.blue h3 { color: #1e3a8a; }
+        .stage.purple h3 { color: #581c87; }
+        .stage.amber h3 { color: #78350f; }
+        .stage.red h3 { color: #7f1d1d; }
+        .stage.emerald h3 { color: #065f46; }
+        
+        .stage p {
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stage.blue p { color: #1e40af; }
+        .stage.purple p { color: #6b21a8; }
+        .stage.amber p { color: #92400e; }
+        .stage.red p { color: #991b1b; }
+        .stage.emerald p { color: #047857; }
+        
+        .stage-note {
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .stage.purple .stage-note {
+            background: #f3e8ff;
+            color: #6b21a8;
+        }
+        
+        .stage.amber .stage-note {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .stage.red ul {
+            font-size: 0.75rem;
+            list-style: none;
+        }
+        
+        .stage.red li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .stage.emerald .opportunity {
+            background: #d1fae5;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .insight-box {
+            background: linear-gradient(to right, #ef4444, #f97316);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-top: 2rem;
+        }
+        
+        .insight-box h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .insight-box p {
+            font-size: 1.125rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stages {
+                grid-template-columns: 1fr;
+            }
+            
+            .persona-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .persona-icon {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Persona 1 -->
+        <div class="persona-card">
+            <div class="persona-header emerald">
+                <div class="persona-info">
+                    <h2>Priya Sharma</h2>
+                    <p>32-35 years • Product Manager</p>
+                </div>
+                <div class="persona-icon">👤</div>
+            </div>
+            
+            <div class="persona-body">
+                <div class="grid">
+                    <div class="section">
+                        <h3>💬 Usage Context</h3>
+                        <ul>
+                            <li>• 15-20 active group chats (work teams)</li>
+                            <li>• 30+ daily 1:1 conversations</li>
+                            <li>• Coordinates projects, shares links, documents</li>
+                            <li>• Decision-making happens in chat</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h3>⏰ Primary Job-to-be-Done</h3>
+                        <p>"I need to quickly find that important message, link, or decision we made last week without scrolling through hundreds of messages"</p>
+                    </div>
+                </div>
+                
+                <div class="pain-points">
+                    <h3>⚠️ Core Pain Points</h3>
+                    <div class="pain-point">
+                        <span>1.</span>
+                        <span>Cannot rediscover critical information shared days/weeks ago in busy groups</span>
+                    </div>
+                    <div class="pain-point">
+                        <span>2.</span>
+                        <span>Search only works if I remember exact keywords; fails for concepts or context</span>
+                    </div>
+                    <div class="pain-point">
+                        <span>3.</span>
+                        <span>Important decisions and action items get buried under casual chat noise</span>
+                    </div>
+                </div>
+                
+                <div class="emotional-state">
+                    <h3>Emotional State When Discovery Fails</h3>
+                    <p>"Frustrated, anxious, and unprofessional — I'm wasting time scrolling while colleagues wait for answers"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Persona 2 -->
+        <div class="persona-card">
+            <div class="persona-header teal">
+                <div class="persona-info">
+                    <h2>Carlos Mendez</h2>
+                    <p>45-50 years • Community Organizer</p>
+                </div>
+                <div class="persona-icon">👤</div>
+            </div>
+            
+            <div class="persona-body">
+                <div class="grid">
+                    <div class="section">
+                        <h3>💬 Usage Context</h3>
+                        <ul>
+                            <li>• Manages 3 large community groups (200+ members)</li>
+                            <li>• Family coordination group (25 members)</li>
+                            <li>• 500+ messages per day across groups</li>
+                            <li>• Event planning, announcements, resources</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h3>⏰ Primary Job-to-be-Done</h3>
+                        <p>"I need to resurface important announcements and key information so members don't miss critical updates"</p>
+                    </div>
+                </div>
+                
+                <div class="pain-points">
+                    <h3>⚠️ Core Pain Points</h3>
+                    <div class="pain-point">
+                        <span>1.</span>
+                        <span>Important updates drown in high-volume group chat; members say "I missed that"</span>
+                    </div>
+                    <div class="pain-point">
+                        <span>2.</span>
+                        <span>Must manually scroll back or rely on memory to find shared resources and event details</span>
+                    </div>
+                    <div class="pain-point">
+                        <span>3.</span>
+                        <span>Constantly answering repeat questions because original info is buried</span>
+                    </div>
+                </div>
+                
+                <div class="emotional-state">
+                    <h3>Emotional State When Discovery Fails</h3>
+                    <p>"Overwhelmed and helpless — people depend on me but I can't help them find what they need"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Map -->
+        <div class="journey-map">
+            <div class="journey-header">
+                <h2>User Journey Map: Message Rediscovery</h2>
+                <p>Persona: Priya Sharma (Product Manager)</p>
+            </div>
+
+            <div class="stages">
+                <div class="stage blue">
+                    <div class="stage-number">1</div>
+                    <h3>Trigger</h3>
+                    <p>In a meeting, needs to reference a link shared by colleague in group chat 3 days ago</p>
+                    <p style="font-style: italic; font-size: 0.75rem;">"Where was that design doc link?"</p>
+                </div>
+
+                <div class="stage purple">
+                    <div class="stage-number">2</div>
+                    <h3>Attempted Recall</h3>
+                    <p>Tries to remember: Which group? Who sent it? What day? Any keywords?</p>
+                    <div class="stage-note">⚠️ Memory fails — too many chats, too much context</div>
+                </div>
+
+                <div class="stage amber">
+                    <div class="stage-number">3</div>
+                    <h3>Current Behavior</h3>
+                    <p>Opens WhatsApp search → tries "design" → 200+ results. Scrolls manually through group</p>
+                    <div class="stage-note">⏰ 5-10 min wasted</div>
+                </div>
+
+                <div class="stage red">
+                    <div class="stage-number">4</div>
+                    <h3>Friction & Breakdown</h3>
+                    <p style="font-weight: 600;">PAIN POINTS:</p>
+                    <ul>
+                        <li>• Can't filter by media type</li>
+                        <li>• No time-based navigation</li>
+                        <li>• Scroll is endless & disorienting</li>
+                        <li>• Meeting is waiting</li>
+                    </ul>
+                </div>
+
+                <div class="stage emerald">
+                    <div class="stage-number">5</div>
+                    <h3>Opportunity Moments</h3>
+                    <div class="opportunity">✨ When search initiated</div>
+                    <div class="opportunity">✨ When entering a chat</div>
+                    <div class="opportunity">✨ During scroll fatigue</div>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <h3>Critical Insight</h3>
+                <p>Users fail at rediscovery NOT because they don't try, but because WhatsApp provides no contextual, semantic, or temporal tools to bridge the gap between "I need something" and "Here it is"</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
