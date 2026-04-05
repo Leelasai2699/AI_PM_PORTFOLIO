@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LLM Inference Playground — Learn Fine-Tuning Concepts</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 20px;
+  color: #222;
+}
+h2 {
+  margin-top: 30px;
+}
+section {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+input[type="text"], input[type="number"], textarea, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+textarea {
+  min-height: 80px;
+}
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  gap: 10px;
+  align-items: center;
+}
+small {
+  display: block;
+  color: #555;
+  margin-top: 4px;
+}
+button {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #0066cc;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+.status {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+}
+.status.ok {
+  background: #e6f6ea;
+  color: #0a7a2f;
+}
+.status.error {
+  background: #fdecea;
+  color: #a40000;
+}
+.output {
+  white-space: pre-wrap;
+  background: #111;
+  color: #0f0;
+  padding: 12px;
+  border-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: Consolas, monospace;
+}
+.footer {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.radio-group label {
+  font-weight: normal;
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<h1>🧪 LLM Inference Playground (Learn “Fine-Tuning” Concepts)</h1>
+
+<section>
+<h2>🔐 API Key Setup</h2>
+<label>Enter your API Key</label>
+<input type="text" id="apiKey" placeholder="Paste your API key here">
+<button id="validateBtn">Validate API Key</button>
+<div id="apiStatus" class="status"></div>
+<small>
+We validate by listing available models.  
+This may succeed even if text generation later fails due to quota or permissions.
+</small>
+</section>
+
+<section>
+<h2>🧠 Model Selection</h2>
+<select id="modelSelect" disabled></select>
+<div id="modelInfo" class="status"></div>
+<small>
+Not all models are suitable for text generation.  
+If your chosen model fails, we will automatically fall back to a safe default and explain why.
+</small>
+</section>
+
+<section>
+<h2>🎭 Response Style</h2>
+<div class="radio-group" id="styleRadios"></div>
+</section>
+
+<section>
+<h2>🎛️ Model Controls (Inference Tuning)</h2>
+
+<label>Temperature</label>
+<div class="controls">
+<input type="range" min="0" max="1.5" step="0.1" id="tempRange">
+<input type="number" min="0" max="1.5" step="0.1" id="tempNum">
+</div>
+<small>Controls creativity. Higher = more imaginative, lower = more predictable.</small>
+
+<label>Top-P</label>
+<div class="controls">
+<input type="range" min="0" max="1" step="0.05" id="topPRange">
+<input type="number" min="0" max="1" step="0.05" id="topPNum">
+</div>
+<small>Limits choices to the most likely words until their probability adds up to P.</small>
+
+<label>Top-K</label>
+<div class="controls">
+<input type="range" min="1" max="100" step="1" id="topKRange">
+<input type="number" min="1" max="100" step="1" id="topKNum">
+</div>
+<small>Considers only the top K most likely next words.</small>
+
+<label>Max Output Tokens</label>
+<div class="controls">
+<input type="range" min="50" max="2048" step="50" id="maxTokRange">
+<input type="number" min="50" max="2048" step="50" id="maxTokNum">
+</div>
+<small>Maximum length of the model’s response.</small>
+</section>
+
+<section>
+<h2>🧠 Instruction & Prompt</h2>
+<label>System / Instruction Prompt</label>
+<textarea id="systemPrompt"></textarea>
+
+<label>User Prompt</label>
+<textarea id="userPrompt" placeholder="Ask something…"></textarea>
+
+<button id="runBtn" disabled>Run Prompt</button>
+</section>
+
+<section>
+<h2>📤 Model Output</h2>
+<div id="output" class="output"></div>
+<div id="outputMeta" class="status"></div>
+</section>
+
+<section class="footer">
+<h2>📘 Understanding Fine-Tuning (Simple Explanation)</h2>
+
+<p><strong>Temperature</strong> is like how adventurous the model is when choosing words.  
+Low temperature = careful and factual.  
+High temperature = creative and surprising.</p>
+
+<p><strong>Top-P and Top-K</strong> decide how many possible next words the model is allowed to consider.  
+Smaller limits make answers safer and more focused.</p>
+
+<p><strong>This playground is NOT real fine-tuning.</strong>  
+We are not changing the model’s memory or training data.</p>
+
+<p><strong>What we ARE doing:</strong></p>
+<ul>
+<li><strong>Prompt engineering:</strong> telling the model what role to play.</li>
+<li><strong>Inference tuning:</strong> adjusting how the model behaves while answering.</li>
+</ul>
+
+<p><strong>Real fine-tuning</strong> means retraining the model on new examples so it permanently learns new behavior.</p>
+
+<p><strong>API keys</strong> are like passwords for AI services.  
+Keep them secret and never share them publicly.</p>
+
+<p>If this clicked for you — great!  
+You now understand why sliders are powerful, but not magic.</p>
+</section>
+
+<script>
+const presets = {
+  "Innovative Thinker": {
+    temperature: 1.2, topP: 0.9, topK: 50,
+    instruction: "You are a creative thinker who explores bold, novel ideas and possibilities."
+  },
+  "Factual & Precise": {
+    temperature: 0.2, topP: 0.8, topK: 20,
+    instruction: "You answer with precise, factual, and carefully verified information."
+  },
+  "Funny Kid (8–10 years old)": {
+    temperature: 1.1, topP: 0.95, topK: 60,
+    instruction: "You speak like a funny, curious kid using simple words and jokes."
+  },
+  "Informed Product Manager": {
+    temperature: 0.5, topP: 0.85, topK: 40,
+    instruction: "You think like a product manager, balancing user needs, business, and technology."
+  },
+  "No-Nonsense Fact Teller": {
+    temperature: 0.1, topP: 0.7, topK: 15,
+    instruction: "You give short, direct, no-fluff factual answers."
+  },
+  "Custom": {
+    temperature: 0.7, topP: 0.9, topK: 40,
+    instruction: ""
+  }
+};
+
+const styleRadios = document.getElementById("styleRadios");
+Object.keys(presets).forEach((name, i) => {
+  const id = "style_" + i;
+  styleRadios.innerHTML += `
+    <label><input type="radio" name="style" id="${id}" ${i===0?"checked":""}> ${name}</label>
+  `;
+  document.getElementById(id).addEventListener("change", () => applyPreset(name));
+});
+
+function sync(range, num) {
+  range.addEventListener("input", () => num.value = range.value);
+  num.addEventListener("input", () => range.value = num.value);
+}
+
+sync(tempRange, tempNum);
+sync(topPRange, topPNum);
+sync(topKRange, topKNum);
+sync(maxTokRange, maxTokNum);
+
+function applyPreset(name) {
+  const p = presets[name];
+  tempRange.value = tempNum.value = p.temperature;
+  topPRange.value = topPNum.value = p.topP;
+  topKRange.value = topKNum.value = p.topK;
+  systemPrompt.value = p.instruction;
+}
+
+applyPreset("Innovative Thinker");
+
+let validated = false;
+let models = [];
+const SAFE_FALLBACK = "models/gemini-1.5-flash";
+
+validateBtn.onclick = async () => {
+  apiStatus.textContent = "Validating…";
+  apiStatus.className = "status";
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey.value}`);
+    if (!res.ok) throw new Error("Invalid or restricted API key.");
+    const data = await res.json();
+    models = (data.models || []).filter(m => (m.supportedGenerationMethods||[]).includes("generateContent"));
+    modelSelect.innerHTML = models.map(m => `<option value="${m.name}">${m.name}</option>`).join("");
+    modelSelect.disabled = false;
+    runBtn.disabled = false;
+    validated = true;
+    apiStatus.textContent = "API Key Valid ✔";
+    apiStatus.className = "status ok";
+  } catch (e) {
+    apiStatus.textContent = "Validation failed. Check your key or network connection.";
+    apiStatus.className = "status error";
+  }
+};
+
+runBtn.onclick = async () => {
+  output.textContent = "Running…";
+  outputMeta.textContent = "";
+  const prompt = userPrompt.value.trim();
+  if (!prompt) {
+    output.textContent = "Please enter a user prompt.";
+    return;
+  }
+
+  const start = Date.now();
+  let usedModel = modelSelect.value;
+  let responseText = "";
+  let fallbackUsed = false;
+
+  async function generate(model) {
+    const body = {
+      contents: [
+        { role: "user", parts: [{ text: systemPrompt.value + "\n\n" + prompt }] }
+      ],
+      generationConfig: {
+        temperature: parseFloat(tempNum.value),
+        topP: parseFloat(topPNum.value),
+        topK: parseInt(topKNum.value),
+        maxOutputTokens: parseInt(maxTokNum.value)
+      }
+    };
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/${model}:generateContent?key=${apiKey.value}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error("Generation failed.");
+    const data = await res.json();
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || "No text returned.";
+  }
+
+  try {
+    responseText = await generate(usedModel);
+  } catch {
+    try {
+      fallbackUsed = true;
+      usedModel = SAFE_FALLBACK;
+      responseText = await generate(usedModel);
+    } catch {
+      responseText = "The model could not generate a response. This is often due to quota limits, unsupported models, or network issues. Try another model or reduce output size.";
+    }
+  }
+
+  output.textContent = responseText;
+  const time = Date.now() - start;
+  outputMeta.textContent =
+    `Model used: ${usedModel} | Latency: ${time} ms` +
+    (fallbackUsed ? " | Fallback used due to model failure." : "");
+  outputMeta.className = "status ok";
+};
+</script>
+
+</body>
+</html>
